@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use App\Http\Resources\KaryawanResource;
 
 class KaryawanController extends Controller
 {
@@ -12,15 +14,9 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $karyawans = Karyawan::latest()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return KaryawanResource::collection($karyawans);
     }
 
     /**
@@ -28,7 +24,25 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'passwordConfirmation' => 'required|same:password',
+            'role' => 'required|string',
+            'alamat' => 'nullable|string'
+        ]);
+
+        $user = User::create($userData);
+
+        $karyawanData['user_id'] = $user->id;
+        $karyawan = Karyawan::create($karyawanData);
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Karyawan Created Successfully',
+            'data' => new KaryawanResource($karyawan)
+        ]);
     }
 
     /**
@@ -36,15 +50,9 @@ class KaryawanController extends Controller
      */
     public function show(Karyawan $karyawan)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Karyawan $karyawan)
-    {
-        //
+        return response()->json([
+            'data' => new KaryawanResource($karyawan)
+        ]);
     }
 
     /**
@@ -52,7 +60,24 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, Karyawan $karyawan)
     {
-        //
+        $user = User::findOrFail($karyawan->user_id);
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'passwordConfirmation' => 'required|same:password',
+            'role' => 'required|string',
+            'alamat' => 'nullable|string'
+        ]);
+
+        $user->update($data);
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Karyawan Edited Successfully',
+            'data' => new KaryawanResource($karyawan)
+        ]);
     }
 
     /**
@@ -60,6 +85,14 @@ class KaryawanController extends Controller
      */
     public function destroy(Karyawan $karyawan)
     {
-        //
+        $user = User::findOrFail($karyawan->user_id);
+
+        $karyawan->delete();
+        $user->delete();
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Karyawan Deleted Successfully'
+        ]);
     }
 }

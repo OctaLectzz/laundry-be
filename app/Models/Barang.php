@@ -19,6 +19,6 @@ class Barang extends Model
     }
     public function notas()
     {
-        return $this->hasMany(Nota::class);
+        return $this->hasMany(Nota::class, 'nota_barangs', 'nota_id', 'barang_id');
     }
 }

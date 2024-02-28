@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use App\Http\Resources\BarangResource;
 
 class BarangController extends Controller
 {
@@ -12,15 +13,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $barangs = Barang::latest()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return BarangResource::collection($barangs);
     }
 
     /**
@@ -28,7 +23,18 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255|unique:barangs',
+            'harga' => 'required|integer'
+        ]);
+
+        $barang = Barang::create($data);
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Barang Created Successfully',
+            'data' => new BarangResource($barang)
+        ]);
     }
 
     /**
@@ -36,15 +42,9 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Barang $barang)
-    {
-        //
+        return response()->json([
+            'data' => new BarangResource($barang)
+        ]);
     }
 
     /**
@@ -52,7 +52,18 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'harga' => 'required|integer'
+        ]);
+
+        $barang->update($data);
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Barang Edited Successfully',
+            'data' => new BarangResource($barang)
+        ]);
     }
 
     /**
@@ -60,6 +71,11 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        $barang->delete();
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Barang Deleted Successfully'
+        ]);
     }
 }

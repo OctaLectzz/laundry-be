@@ -14,6 +14,13 @@ class JenisLayananResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'barang_id' => $this->barang_id,
+            'barang' => $this->barang->name,
+            'jenis_cuci' => $this->jenis_cuci,
+            'waktu' => $this->waktu,
+            'berat' => $this->berat
+        ];
     }
 }

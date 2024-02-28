@@ -14,16 +14,15 @@ return new class extends Migration
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
             $table->string('no_nota')->unique();
-            $table->unsignedBigInteger('barang_id');
+            $table->unsignedBigInteger('pelanggan_id');
             $table->unsignedBigInteger('jenis_layanan_id');
-            $table->string('nm_plggan');
             $table->string('waktu');
             $table->date('tanggal');
-            $table->integer('total_hrg');
+            $table->integer('total_harga');
             $table->timestamps();
 
+            $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('jenis_layanan_id')->references('id')->on('jenis_layanans')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

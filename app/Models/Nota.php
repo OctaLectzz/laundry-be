@@ -13,9 +13,9 @@ class Nota extends Model
         'id'
     ];
 
-    public function barang()
+    public function barangs()
     {
-        return $this->belongsTo(Barang::class);
+        return $this->hasMany(Barang::class, 'nota_barangs', 'barang_id', 'nota_id');
     }
     public function jenisLayanan()
     {

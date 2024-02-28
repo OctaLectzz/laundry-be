@@ -17,8 +17,8 @@ class Pelanggan extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function nota()
+    public function notas()
     {
-        return $this->belongsTo(Nota::class);
+        return $this->hasMany(Nota::class);
     }
 }
