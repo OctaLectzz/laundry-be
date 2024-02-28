@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('nota', function (Blueprint $table) {
+        Schema::create('notas', function (Blueprint $table) {
             $table->id();
             $table->string('no_nota')->unique();
             $table->unsignedBigInteger('barang_id');
-            $table->unsignedBigInteger('jenis-layanan_id');
+            $table->unsignedBigInteger('jenis_layanan_id');
             $table->string('nm_plggan');
             $table->string('waktu');
             $table->date('tanggal');
             $table->integer('total_hrg');
+            $table->timestamps();
 
-
-            $table->foreign('jenis-layanan_id')->references('id')->on('jenis-layanan')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('barang_id')->references('id')->on('barang')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('jenis_layanan_id')->references('id')->on('jenis_layanans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('notas');
     }
 };
