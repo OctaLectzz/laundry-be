@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('jenis_layanan_id');
             $table->string('waktu');
             $table->date('tanggal');
+            $table->integer('berat');
             $table->integer('total_harga');
             $table->timestamps();
 

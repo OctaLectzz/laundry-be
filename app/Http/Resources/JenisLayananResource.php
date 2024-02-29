@@ -16,11 +16,9 @@ class JenisLayananResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'barang_id' => $this->barang_id,
-            'barang' => $this->barang->name,
             'jenis_cuci' => $this->jenis_cuci,
             'waktu' => $this->waktu,
-            'berat' => $this->berat
+            'harga' => $this->harga
         ];
     }
 }

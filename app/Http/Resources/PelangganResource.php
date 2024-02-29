@@ -20,6 +20,7 @@ class PelangganResource extends JsonResource
             'name' => $this->user->name,
             'email' => $this->user->email,
             'role' => $this->user->role,
+            'jenis_kelamin' => $this->user->jenis_kelamin,
             'alamat' => $this->user->alamat
         ];
     }

@@ -30,6 +30,7 @@ class KaryawanController extends Controller
             'password' => 'required|min:8',
             'passwordConfirmation' => 'required|same:password',
             'role' => 'required|string',
+            'jenis_kelamin' => 'required|string',
             'alamat' => 'nullable|string'
         ]);
 
@@ -64,10 +65,8 @@ class KaryawanController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'passwordConfirmation' => 'required|same:password',
-            'role' => 'required|string',
+            'email' => 'required|email',
+            'jenis_kelamin' => 'required|string',
             'alamat' => 'nullable|string'
         ]);
 

@@ -25,15 +25,10 @@ class JenisLayananController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'barang' => 'required',
-            'jenis_cuci' => 'required|string|max:255',
+            'jenis_cuci' => 'required|string|max:255|unique:jenis_layanans',
             'waktu' => 'required|string|max:255',
-            'berat' => 'required|string|max:255'
+            'harga' => 'required|integer'
         ]);
-
-        // Barang
-        $barang = Barang::where('name', $request->barang)->first();
-        $data['barang_id'] = $barang->id;
 
         $jenislayanan = Jenislayanan::create($data);
 
@@ -60,15 +55,10 @@ class JenisLayananController extends Controller
     public function update(Request $request, Jenislayanan $jenislayanan)
     {
         $data = $request->validate([
-            'barang' => 'required',
             'jenis_cuci' => 'required|string|max:255',
             'waktu' => 'required|string|max:255',
-            'berat' => 'required|string|max:255'
+            'harga' => 'required|integer'
         ]);
-
-        // Barang
-        $barang = Barang::where('name', $request->barang)->first();
-        $data['barang_id'] = $barang->id;
 
         $jenislayanan->update($data);
 
