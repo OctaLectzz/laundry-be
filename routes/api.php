@@ -2,12 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\JenisLayananController;
-use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NotaController;
-use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\JenisLayananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,15 @@ use App\Http\Controllers\UserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+// ---AUTHENTICATION--- //
+Route::prefix('auth')->controller(AuthController::class)->group(function () {
+    Route::get('/profile', 'profile')->middleware('auth:sanctum');
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+    Route::get('/logout', 'logout')->middleware('auth:sanctum');
 });
 
 // ---USER--- //
