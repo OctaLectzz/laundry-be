@@ -17,6 +17,10 @@ class Nota extends Model
     {
         return $this->hasMany(Barang::class, 'nota_barangs', 'barang_id', 'nota_id');
     }
+    public function kiloan()
+    {
+        return $this->belongsTo(Kiloan::class);
+    }
     public function jenisLayanan()
     {
         return $this->belongsTo(JenisLayanan::class);

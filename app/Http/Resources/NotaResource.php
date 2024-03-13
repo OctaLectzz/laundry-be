@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +26,8 @@ class NotaResource extends JsonResource
             'jenis_cuci' => $this->jenisLayanan->jenis_cuci,
             'waktu' => $this->waktu,
             'tanggal' => $this->tanggal,
-            'total_harga' => $this->total_harga
+            'total_harga' => $this->total_harga,
+            'created_at' => Carbon::parse($this->created_at)->format('d F Y H:i')
         ];
     }
 }

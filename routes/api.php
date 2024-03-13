@@ -9,6 +9,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\JenisLayananController;
+use App\Http\Controllers\KiloanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,15 @@ Route::prefix('barang')->controller(BarangController::class)->group(function () 
     Route::post('/', 'store');
     Route::put('/{barang}', 'update');
     Route::delete('/{barang}', 'destroy');
+});
+
+// ---KILOAN--- //
+Route::prefix('kiloan')->controller(KiloanController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{kiloan}', 'show');
+    Route::post('/', 'store');
+    Route::put('/{kiloan}', 'update');
+    Route::delete('/{kiloan}', 'destroy');
 });
 
 // ---JENIS LAYANAN--- //

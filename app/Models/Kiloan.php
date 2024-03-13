@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JenisLayanan extends Model
+class Kiloan extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,6 @@ class JenisLayanan extends Model
 
     public function notas()
     {
-        return $this->belongsTo(Nota::class);
+        return $this->hasMany(Nota::class);
     }
 }

@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
         // Barang
         $this->call(BarangSeeder::class);
 
+        // Kiloan
+        $this->call(KiloanSeeder::class);
+
         // Jenis Layanan
         $this->call(JenisLayananSeeder::class);
 

@@ -13,10 +13,6 @@ class Barang extends Model
         'id'
     ];
 
-    public function jenisLayanans()
-    {
-        return $this->hasMany(JenisLayanan::class);
-    }
     public function notas()
     {
         return $this->hasMany(Nota::class, 'nota_barangs', 'nota_id', 'barang_id');
