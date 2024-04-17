@@ -37,14 +37,22 @@ class NotaController extends Controller
         // Menghitung total pendapatan di setiap bulan
         $incomeData = $this->generateEmptyIncomeArray();
 
+        // Total semua pendapatan di Laravel
+        $totalIncomeAllMonths = 0;
+
         foreach ($groupedData as $month => $data) {
             $totalIncome = $data->sum('jumlah');
             $incomeData[$month] = $totalIncome;
+            $totalIncomeAllMonths += $totalIncome;
         }
+
+        // Menambahkan total semua pendapatan di Laravel ke dalam data
+        $incomeData['total'] = $totalIncomeAllMonths;
 
         // Mengembalikan data dalam format yang sesuai untuk chart
         return new ChartResource($incomeData);
     }
+
 
     public function pie()
     {
@@ -69,7 +77,7 @@ class NotaController extends Controller
     {
         $months = [
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'total'
         ];
 
         $emptyArray = [];
@@ -140,7 +148,6 @@ class NotaController extends Controller
             'waktu' => 'required',
             'kiloan_id' => 'required|exists:kiloans,id',
             'berat' => 'required',
-            'jenis_layanan_id' => 'required|exists:jenis_layanans,id',
             'total_harga' => 'required',
             'diskon' => 'required|integer',
             'jumlah' => 'required'
