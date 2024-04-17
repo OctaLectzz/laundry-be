@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class NotaBarang extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,8 @@ class Barang extends Model
         'id'
     ];
 
-    public function notas()
+    public function nota()
     {
-        return $this->hasMany(Nota::class);
+        return $this->belongsTo(Nota::class);
     }
 }

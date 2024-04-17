@@ -15,7 +15,11 @@ class Nota extends Model
 
     public function barangs()
     {
-        return $this->hasMany(Barang::class, 'nota_barangs', 'barang_id', 'nota_id');
+        return $this->hasMany(Barang::class);
+    }
+    public function notabarangs()
+    {
+        return $this->hasMany(NotaBarang::class);
     }
     public function kiloan()
     {

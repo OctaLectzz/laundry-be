@@ -18,15 +18,18 @@ class NotaResource extends JsonResource
         return [
             'id' => $this->id,
             'no_nota' => $this->no_nota,
-            'pelanggan_id' => $this->pelanggan_id,
+            'jenis' => $this->jenis,
             'jenis_layanan_id' => $this->jenis_layanan_id,
-            'barang_id' => $this->barang_id,
-            'pelanggan' => $this->pelanggan->user->name,
-            'barang' => $this->barang,
-            'jenis_cuci' => $this->jenisLayanan->jenis_cuci,
-            'waktu' => $this->waktu,
-            'tanggal' => $this->tanggal,
+            'kiloan_id' => $this->kiloan_id,
+            'nama_pelanggan' => $this->nama_pelanggan,
+            'berat' => $this->berat ? $this->berat : 0,
+            'waktu' => Carbon::parse($this->waktu)->format('d-m-Y H:i'),
             'total_harga' => $this->total_harga,
+            'diskon' => $this->diskon,
+            'jumlah' => $this->jumlah,
+            'jenis_layanan' => $this->jenisLayanan ? new JenisLayananResource($this->jenisLayanan) : null,
+            'kiloan' => $this->kiloan ? new KiloanResource($this->kiloan) : null,
+            'notabarangs' => $this->notabarangs ? NotaBarangResource::collection($this->notabarangs) : null,
             'created_at' => Carbon::parse($this->created_at)->format('d F Y H:i')
         ];
     }

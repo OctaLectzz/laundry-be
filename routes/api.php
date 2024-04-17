@@ -92,8 +92,12 @@ Route::prefix('pelanggan')->controller(PelangganController::class)->group(functi
 // ---NOTA--- //
 Route::prefix('nota')->controller(NotaController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('/chart', 'chart');
+    Route::get('/pie', 'pie');
     Route::get('/{nota}', 'show');
-    Route::post('/', 'store');
+    Route::post('/satuan', 'storeSatuan');
+    Route::post('/satuan/barang', 'storeSatuanBarang');
+    Route::post('/kiloan', 'storeKiloan');
     Route::put('/{nota}', 'update');
     Route::delete('/{nota}', 'destroy');
 });
